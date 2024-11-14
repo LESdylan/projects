@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Dashboard GitHub Portfolio</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>Mon Portfolio</h2>
+    </div>
+    <nav class="nav">
+      <ul>
+        <li><a href="#overview"><i class="fas fa-chart-line"></i> Vue d'ensemble</a></li>
+        <li><a href="#repos"><i class="fas fa-folder"></i> Mes Dépôts</a></li>
+        <li><a href="#stats"><i class="fas fa-star"></i> Statistiques</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <h1>Bienvenue dans mon Dashboard GitHub</h1>
+      <p>Découvrez mes projets et leurs détails grâce à l'API GitHub.</p>
+    </header>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+      <h2>Vue d'ensemble</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Total Dépôts</h3>
+          <p><%= user.totalRepos %></p>
+        </div>
+        <div class="card">
+          <h3>Étoiles</h3>
+          <p><%= user.totalStars %></p>
+        </div>
+        <div class="card">
+          <h3>Forks</h3>
+          <p><%= user.totalForks %></p>
+        </div>
+        <div class="card">
+          <h3>Contributeurs</h3>
+          <p><%= user.totalContributors %></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repositories Section -->
+    <section id="repos" class="section">
+      <h2>Mes Dépôts GitHub</h2>
+      <div class="repo-list">
+        <% user.repos.forEach(repo => { %>
+          <div class="repo-card">
+            <h3><a href="<%= repo.html_url %>" target="_blank"><%= repo.name %></a></h3>
+            <p><%= repo.description %></p>
+            <div class="repo-info">
+              <span><i class="fas fa-star"></i> <%= repo.stargazers_count %></span>
+              <span><i class="fas fa-code-branch"></i> <%= repo.forks_count %></span>
+              <span><i class="fas fa-eye"></i> <%= repo.watchers_count %></span>
+            </div>
+            <div class="repo-language">
+              <span><%= repo.language %></span>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="section">
+      <h2>Statistiques GitHub</h2>
+      <div class="stats-cards">
+        <div class="stats-card">
+          <h3>Principaux Langages</h3>
+          <ul>
+            <% user.languages.forEach(language => { %>
+              <li><%= language.name %> - <%= language.percentage %>%</li>
+            <% }) %>
+          </ul>
+        </div>
+        <div class="stats-card">
+          <h3>Activité Récente</h3>
+          <ul>
+            <% user.recentActivities.forEach(activity => { %>
+              <li><%= activity %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2>Contactez-moi</h2>
+      <form action="/contact" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="Votre Nom" required>
+        <input type="email" name="email" placeholder="Votre Email" required>
+        <textarea name="message" placeholder="Votre Message" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- CSS Styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      margin: 0;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      height: 100vh;
+    }
+    .sidebar .logo h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    .nav ul li {
+      margin: 15px 0;
+    }
+    .nav ul li a {
+      color: #ecf0f1;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    .main-content {
+      flex: 1;
+      padding: 20px;
+    }
+    .header h1 {
+      font-size: 28px;
+      color: #34495e;
+    }
+    .section {
+      margin-top: 40px;
+    }
+    .section h2 {
+      font-size: 24px;
+      color: #34495e;
+    }
+    .cards, .repo-list, .stats-cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .card, .repo-card, .stats-card {
+      background-color: #ecf0f1;
+      padding: 20px;
+      border-radius: 8px;
+      width: 200px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .contact-form button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .contact-form button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+
+</body>
+</html>

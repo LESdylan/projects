@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/public/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>Mon Portfolio</h2>
+    </div>
+    <nav class="nav">
+      <ul>
+        <li><a href="#overview"><i class="fas fa-chart-line"></i> Vue d'ensemble</a></li>
+        <li><a href="#repos"><i class="fas fa-folder"></i> Mes Dépôts</a></li>
+        <li><a href="#stats"><i class="fas fa-star"></i> Statistiques</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <h1>Bienvenue dans mon Dashboard GitHub</h1>
+      <p>Découvrez mes projets et leurs détails grâce à l'API GitHub.</p>
+    </header>
+
+    <!-- Repositories Section -->
+    <section id="repos" class="section">
+      <h2>Mes Dépôts GitHub</h2>
+      <div class="repo-list">
+        <% user.repos.forEach(repo => { %>
+          <div class="repo-card">
+            <h3><a href="<%= repo.html_url %>" target="_blank"><%= repo.name %></a></h3>
+            <p><%= repo.description %></p>
+            <div class="repo-info">
+              <span><i class="fas fa-star"></i> <%= repo.stargazers_count %></span>
+              <span><i class="fas fa-code-branch"></i> <%= repo.forks_count %></span>
+              <span><i class="fas fa-eye"></i> <%= repo.watchers_count %></span>
+            </div>
+            <div class="repo-language">
+              <span><%= repo.language %></span>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Statistiques Section -->
+    <section id="stats" class="section">
+      <h2>Statistiques GitHub</h2>
+      <div class="stats-cards">
+        <!-- Exemple pour afficher des statistiques de code -->
+        <div class="stats-card">
+          <h3>Principaux Langages</h3>
+          <ul>
+            <li>JavaScript - 60%</li> <!-- Exemple statique, tu peux implémenter ça dynamiquement si tu le souhaites -->
+            <li>HTML - 25%</li>
+            <li>CSS - 15%</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2>Contactez-moi</h2>
+      <form action="/contact" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="Votre Nom" required>
+        <input type="email" name="email" placeholder="Votre Email" required>
+        <textarea name="message" placeholder="Votre Message" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- CSS Styles -->
+  <style>
+    /* Ajoute ici tes styles CSS ou référence un fichier CSS externe */
+  </style>
+
+</body>
+</html>
