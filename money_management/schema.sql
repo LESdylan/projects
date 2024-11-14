@@ -3,9 +3,10 @@ DROP TABLE IF EXISTS `tickets`, `bill_logs`, `bills`, `expenses_by_items`, `bank
 
 -- Create the users table
 CREATE TABLE IF NOT EXISTS `users` (
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `id` UUID PRIMARY KEY AUTO_INCREMENT, --format 8-4-4-4-12
     `username` VARCHAR(32) NOT NULL UNIQUE,
-    `password` VARCHAR(64) NOT NULL,  -- Increased size for hashed passwords
+    `email` VARCHAR(254) NOT NULL UNIQUE, --maximum size for a login email
+    `password` VARCHAR(64) NOT NULL,  -- Increased size for hashed passwords BCRYPT
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
